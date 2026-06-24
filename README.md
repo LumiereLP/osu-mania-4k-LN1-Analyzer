@@ -251,7 +251,6 @@ print(result)
 * 4K only
 * Designed specifically for LN1-oriented charts
 * Does not model reading difficulty
-* Does not model pattern memorization
 * Does not model stamina decay
 * Not calibrated against large-scale player score datasets
 
