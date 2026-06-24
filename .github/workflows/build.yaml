@@ -1,8 +1,9 @@
 name: Build EXE
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
 
 permissions:
   contents: write
@@ -25,17 +26,11 @@ jobs:
 
       - name: Build CN
         run: |
-          pyinstaller ^
-            --onefile ^
-            --name LN1Analyzer_CN ^
-            osu_mania_4k_ln_analyzer_CN.py
+          pyinstaller --onefile --name LN1Analyzer_CN osu_mania_4k_ln_analyzer_CN.py
 
       - name: Build EN
         run: |
-          pyinstaller ^
-            --onefile ^
-            --name LN1Analyzer_EN ^
-            osu_mania_4k_ln_analyzer_EN.py
+          pyinstaller --onefile --name LN1Analyzer_EN osu_mania_4k_ln_analyzer_EN.py
 
       - name: Upload EXE
         uses: softprops/action-gh-release@v2
