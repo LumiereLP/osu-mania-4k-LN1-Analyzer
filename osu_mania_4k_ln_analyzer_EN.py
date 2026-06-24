@@ -1,7 +1,12 @@
 import math
 import os
 import re
-
+import math
+import os
+import re
+from tkinter import filedialog
+from tkinter import Tk
+import sys
 
 class HitObject:
     def __init__(self, col, start_time, end_time=None):
@@ -278,40 +283,104 @@ class LN1Analyzer:
             }
         }
 
+def get_input_file():
+
+    if len(sys.argv) > 1:
+        return sys.argv[1]
+
+    root = Tk()
+    root.withdraw()
+
+    return filedialog.askopenfilename(
+        title="Select an osu! beatmap",
+        filetypes=[("osu! beatmap", "*.osu")]
+    )
 
 # ==========================================
 # Auto test and report generation for a sample .osu file
 # ==========================================
 if __name__ == "__main__":
-    # Detect the uploaded file
-    target_file = "yuikonnu x sana - Fuzzy Future (Hylotl) [Toward Radiance].osu"
-    
-    if os.path.exists(target_file):
-        print(f"Reading and parsing: {target_file} ...\n")
-        try:
-            bm = ManiaBeatmap(target_file)
-            analyzer = LN1Analyzer(bm)
-            result = analyzer.analyze()
-            
-            # Formatting and printing the results
-            print("=" * 50)
-            print(f" Artist - Title: {result['metadata']['artist']} - {result['metadata']['title']}")
-            print(f" Beatmap Difficulty: [{result['metadata']['version']}]")
-            print(f" Creator: {result['metadata']['creator']}")
-            print(f" OD: {result['metadata']['od']}")
-            print(f" Total Notes: {result['metadata']['total_notes']} (LN Ratio: {result['metadata']['ln_ratio']})")
-            print(f" Average Density (NPS): {result['metadata']['nps']} note/s")
-            print("-" * 50)
-            print(f" Coordination Factor: {result['metrics']['coordination_rating']}")
-            print(f" Release Factor:      {result['metrics']['release_rating']}")
-            print(f" Speed Factor:  {result['metrics']['speed_factor']}")
-            print(f" Overall LN1 Difficulty:        {result['metrics']['total_ln_rating']}")
-            print("-" * 50)
-            print(f" Coordination Lock Ratio:     {result['ratios']['coordination_lock_ratio']}")
-            print(f" Awkward Release Ratio:  {result['ratios']['awkward_release_ratio']}")
-            print("=" * 50)
-            
-        except Exception as e:
-            print(f"Analysis failed with error: {e}")
-    else:
-        print(f"Sample file not found in the current working directory: '{target_file}'. Please ensure the filename and path are correct.")
+
+    target_file = get_input_file()
+
+    if not target_file:
+        print("No beatmap selected.")
+        input("\nPress Enter to exit...")
+        sys.exit()
+
+    if not os.path.exists(target_file):
+        print(f"File not found: {target_file}")
+        input("\nPress Enter to exit...")
+        sys.exit()
+
+    try:
+        bm = ManiaBeatmap(target_file)
+        analyzer = LN1Analyzer(bm)
+        result = analyzer.analyze()
+
+        print("=" * 50)
+        print(
+            f" Artist - Title: "
+            f"{result['metadata']['artist']} - "
+            f"{result['metadata']['title']}"
+        )
+
+        print(
+            f" Beatmap Difficulty: "
+            f"[{result['metadata']['version']}]"
+        )
+
+        print(f" Creator: {result['metadata']['creator']}")
+        print(f" OD: {result['metadata']['od']}")
+
+        print(
+            f" Total Notes: "
+            f"{result['metadata']['total_notes']} "
+            f"(LN Ratio: {result['metadata']['ln_ratio']})"
+        )
+
+        print(
+            f" Average Density (NPS): "
+            f"{result['metadata']['nps']} note/s"
+        )
+
+        print("-" * 50)
+
+        print(
+            f" Coordination Factor: "
+            f"{result['metrics']['coordination_rating']}"
+        )
+
+        print(
+            f" Release Factor: "
+            f"{result['metrics']['release_rating']}"
+        )
+
+        print(
+            f" Speed Factor: "
+            f"{result['metrics']['speed_factor']}"
+        )
+
+        print(
+            f" Overall LN1 Difficulty: "
+            f"{result['metrics']['total_ln_rating']}"
+        )
+
+        print("-" * 50)
+
+        print(
+            f" Coordination Lock Ratio: "
+            f"{result['ratios']['coordination_lock_ratio']}"
+        )
+
+        print(
+            f" Awkward Release Ratio: "
+            f"{result['ratios']['awkward_release_ratio']}"
+        )
+
+        print("=" * 50)
+
+    except Exception as e:
+        print(f"Analysis failed: {e}")
+
+    input("\nPress Enter to exit...")

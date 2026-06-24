@@ -1,7 +1,9 @@
 import math
 import os
 import re
-
+from tkinter import filedialog
+from tkinter import Tk
+import sys
 
 class HitObject:
     """表示一个 osu!mania 的打击物件（Rice Note 或 Long Note）。"""
@@ -279,40 +281,104 @@ class LN1Analyzer:
             }
         }
 
+def get_input_file():
+
+    if len(sys.argv) > 1:
+        return sys.argv[1]
+
+    root = Tk()
+    root.withdraw()
+
+    return filedialog.askopenfilename(
+        title="Select an osu! beatmap",
+        filetypes=[("osu! beatmap", "*.osu")]
+    )
 
 # ==========================================
 # 自动执行测试段：解析上传的 .osu 文件并运行分析
 # ==========================================
 if __name__ == "__main__":
-    # 检测上传的文件
-    target_file = "Monster Siren Records - See you soon (ImperialTrinity) [See you next time].osu"
-    
-    if os.path.exists(target_file):
-        print(f"正在读取并解析: {target_file} ...\n")
-        try:
-            bm = ManiaBeatmap(target_file)
-            analyzer = LN1Analyzer(bm)
-            result = analyzer.analyze()
-            
-            # 格式化输出报告
-            print("=" * 50)
-            print(f" 谱面名称: {result['metadata']['artist']} - {result['metadata']['title']}")
-            print(f" 谱面难度: [{result['metadata']['version']}]")
-            print(f" 创作者: {result['metadata']['creator']}")
-            print(f" 判定系数 (OD): {result['metadata']['od']}")
-            print(f" 总音符数: {result['metadata']['total_notes']} (LN 占比: {result['metadata']['ln_ratio']})")
-            print(f" 平均密度 (NPS): {result['metadata']['nps']} note/s")
-            print("-" * 50)
-            print(f" 协调度评级 (Coordination): {result['metrics']['coordination_rating']}")
-            print(f" 放手评级 (Release):      {result['metrics']['release_rating']}")
-            print(f" 速度因子 (Speed Factor):  {result['metrics']['speed_factor']}")
-            print(f" 综合 LN1 难度标记:        {result['metrics']['total_ln_rating']}")
-            print("-" * 50)
-            print(f" 锁手按键触发比 (Coord Ratio):     {result['ratios']['coordination_lock_ratio']}")
-            print(f" 别扭放手区间占比 (Awkward Ratio):  {result['ratios']['awkward_release_ratio']}")
-            print("=" * 50)
-            
-        except Exception as e:
-            print(f"分析运行过程中发生错误: {e}")
-    else:
-        print(f"未在当前工作目录下找到示例文件: '{target_file}'。请确保文件名和路径匹配。")
+
+    target_file = get_input_file()
+
+    if not target_file:
+        print("未选中任何文件。")
+        input("\n按 Enter 键退出...")
+        sys.exit()
+
+    if not os.path.exists(target_file):
+        print(f"文件未找到: {target_file}")
+        input("\n按 Enter 键退出...")
+        sys.exit()
+
+    try:
+        bm = ManiaBeatmap(target_file)
+        analyzer = LN1Analyzer(bm)
+        result = analyzer.analyze()
+
+        print("=" * 50)
+        print(
+            f" 艺术家 - 标题 : "
+            f"{result['metadata']['artist']} - "
+            f"{result['metadata']['title']}"
+        )
+
+        print(
+            f" 难度名: "
+            f"[{result['metadata']['version']}]"
+        )
+
+        print(f" 作者: {result['metadata']['creator']}")
+        print(f" OD: {result['metadata']['od']}")
+
+        print(
+            f" 总物量: "
+            f"{result['metadata']['total_notes']} "
+            f"(LN 比例: {result['metadata']['ln_ratio']})"
+        )
+
+        print(
+            f" 平均密度 (NPS): "
+            f"{result['metadata']['nps']} note/s"
+        )
+
+        print("-" * 50)
+
+        print(
+            f" 协调乘数(Coordination): "
+            f"{result['metrics']['coordination_rating']}"
+        )
+
+        print(
+            f" 放手乘数(Release): "
+            f"{result['metrics']['release_rating']}"
+        )
+
+        print(
+            f" 速度乘数(Speed): "
+            f"{result['metrics']['speed_factor']}"
+        )
+
+        print(
+            f" 综合 LN1 难度: "
+            f"{result['metrics']['total_ln_rating']}"
+        )
+
+        print("-" * 50)
+
+        print(
+            f" 锁手触发比例: "
+            f"{result['ratios']['coordination_lock_ratio']}"
+        )
+
+        print(
+            f" 别扭放手区间占比: "
+            f"{result['ratios']['awkward_release_ratio']}"
+        )
+
+        print("=" * 50)
+
+    except Exception as e:
+        print(f"分析失败: {e}")
+
+    input("\n按 Enter 键退出...")
