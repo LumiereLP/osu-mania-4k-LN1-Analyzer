@@ -146,7 +146,7 @@ Where:
 
 Raw metrics are transformed using logarithmic compression:
 
-\[S(x)=5\ln(1+x)\]
+\[S(x)=x ^ {0.67}\]
 
 Resulting in:
 
@@ -261,8 +261,7 @@ This project is intended as an experimental LN difficulty research framework rat
 
 ## Future Work
 
-* LN2 support
-* Hybrid LN pattern classification
+* LN tech support
 * Pattern clustering
 * Strain graph visualization
 * Community calibration datasets
