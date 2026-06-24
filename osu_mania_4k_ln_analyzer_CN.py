@@ -8,9 +8,9 @@ import sys
 class HitObject:
     """表示一个 osu!mania 的打击物件（Rice Note 或 Long Note）。"""
     def __init__(self, col, start_time, end_time=None):
-        self.col = col  # 轨道 (0, 1, 2, 3)
-        self.start_time = start_time  # 按下时间 (ms)
-        self.end_time = end_time  # 松开时间 (ms)，若是 Rice Note 则为 None
+        self.col = col
+        self.start_time = start_time
+        self.end_time = end_time
         self.is_ln = end_time is not None
 
     @property
@@ -28,8 +28,8 @@ class ManiaBeatmap:
         self.artist = ""
         self.version = ""
         self.creator = ""
-        self.od = 8.0  # 默认 OverallDifficulty
-        self.columns = 4  # 默认 4K
+        self.od = 8.0
+        self.columns = 4  # 只有4k
         self.hit_objects = []
         self.parse_file()
 
