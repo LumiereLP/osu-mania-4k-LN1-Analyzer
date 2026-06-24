@@ -1,0 +1,9 @@
+[tool.semantic_release]
+
+branch = "main"
+
+version_source = "tag"
+
+upload_to_pypi = false
+
+build_command = ""
