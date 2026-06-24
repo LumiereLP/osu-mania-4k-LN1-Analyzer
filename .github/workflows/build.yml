@@ -1,42 +1,44 @@
 name: Build LN1Analyzer
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
 
 jobs:
-  build:
+  release:
     runs-on: windows-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+    
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
+    
       - name: Install PyInstaller
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
-
+    
       - name: Build LN1Analyzer_CN
         run: |
           pyinstaller --onefile --clean --name LN1Analyzer_CN osu_mania_4k_ln_analyzer_CN.py
-
+    
       - name: Build LN1Analyzer_EN
         run: |
           pyinstaller --onefile --clean --name LN1Analyzer_EN osu_mania_4k_ln_analyzer_EN.py
-
-      - name: Upload LN1Analyzer_CN
-        uses: actions/upload-artifact@v4
+    
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: LN1Analyzer_CN
-          path: dist/LN1Analyzer_CN.exe
-
-      - name: Upload LN1Analyzer_EN
-        uses: actions/upload-artifact@v4
-        with:
-          name: LN1Analyzer_EN
-          path: dist/LN1Analyzer_EN.exe
+          files: |
+            dist/LN1Analyzer_CN.exe
+            dist/LN1Analyzer_EN.exe
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
