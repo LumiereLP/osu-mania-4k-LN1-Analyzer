@@ -183,17 +183,22 @@ The model intentionally prioritizes release control and coordination over raw de
 ### MWC 2024 Qualifiers — sasakure.UK - Decadence
 
 ```text
-Artist - Title: sasakure.UK - Decadence feat. mami
-Difficulty: Stage 4: Terminus
-
-Coordination Factor: 27.771
-Release Factor:      18.420
-Speed Factor:         9.320
-
-Overall LN1 Difficulty: 21.189
-
-Coordination Lock Ratio: 43.2%
-Awkward Release Ratio:   41.1%
+==================================================
+ Artist - Title: sasakure.UK - Decadence feat. mami
+ Beatmap Difficulty: [Stage 4: Terminus]
+ Creator: [Crz]Crysarlene
+ OD: 7.0
+ Total Notes: 2367 (LN Ratio: 84.1%)
+ Average Density (NPS): 13.62 note/s
+--------------------------------------------------
+ Coordination Factor: 41.211
+ Release Factor: 11.603
+ Speed Factor: 3.114
+ Overall LN1 Difficulty: 26.998
+--------------------------------------------------
+ Coordination Lock Ratio: 43.2%
+ Awkward Release Ratio: 41.1%
+==================================================
 ```
 
 ---
@@ -201,17 +206,22 @@ Awkward Release Ratio:   41.1%
 ### MWC 2025 Grand Finals — yuikonnu x sana - Fuzzy Future
 
 ```text
-Artist - Title: yuikonnu x sana - Fuzzy Future
-Difficulty: Toward Radiance
-
-Coordination Factor: 28.982
-Release Factor:      19.651
-Speed Factor:        10.287
-
-Overall LN1 Difficulty: 22.307
-
-Coordination Lock Ratio: 43.0%
-Awkward Release Ratio:   41.9%
+==================================================
+ Artist - Title: yuikonnu x sana - Fuzzy Future
+ Beatmap Difficulty: [Toward Radiance]
+ Creator: Hylotl
+ OD: 7.2
+ Total Notes: 4100 (LN Ratio: 98.4%)
+ Average Density (NPS): 17.06 note/s
+--------------------------------------------------
+ Coordination Factor: 48.499
+ Release Factor: 13.735
+ Speed Factor: 3.621
+ Overall LN1 Difficulty: 31.783
+--------------------------------------------------
+ Coordination Lock Ratio: 43.0%
+ Awkward Release Ratio: 41.9%
+==================================================
 ```
 
 The results indicate that both charts place similar demands on:
