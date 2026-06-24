@@ -243,7 +243,7 @@ class LN1Analyzer:
         rel_star   = raw_rel ** 0.67
         speed_star = raw_speed ** 0.67
 
-        # RMS 融合
+        # 均方根融合
         final_rating = (
             0.40 * coord_star ** 2 +
             0.35 * rel_star ** 2 +
