@@ -238,10 +238,10 @@ class LN1Analyzer:
         raw_rel = (rel_score_total * norm_factor) * self.m_precision
         raw_speed = nps * 0.4
 
-        # 对数压缩
-        coord_star = 5.0 * math.log1p(raw_coord)
-        rel_star = 5.0 * math.log1p(raw_rel)
-        speed_star = 5.0 * math.log1p(raw_speed)
+        # 幂函数压缩
+        coord_star = raw_coord ** 0.67
+        rel_star   = raw_rel ** 0.67
+        speed_star = raw_speed ** 0.67
 
         # RMS 融合
         final_rating = (
