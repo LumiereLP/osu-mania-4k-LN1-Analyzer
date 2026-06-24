@@ -146,7 +146,7 @@ Where:
 
 Raw metrics are transformed using logarithmic compression:
 
-\[S(x)=5\ln(1+x)\]
+\[S(x)=x ^ {0.67}\]
 
 Resulting in:
 
@@ -251,7 +251,6 @@ print(result)
 * 4K only
 * Designed specifically for LN1-oriented charts
 * Does not model reading difficulty
-* Does not model pattern memorization
 * Does not model stamina decay
 * Not calibrated against large-scale player score datasets
 
@@ -261,8 +260,7 @@ This project is intended as an experimental LN difficulty research framework rat
 
 ## Future Work
 
-* LN2 support
-* Hybrid LN pattern classification
+* LN tech support
 * Pattern clustering
 * Strain graph visualization
 * Community calibration datasets
