@@ -1,9 +1,16 @@
 [tool.semantic_release]
-
 branch = "main"
-
 version_source = "tag"
-
 upload_to_pypi = false
 
-build_command = ""
+build_command = """
+pyinstaller --onefile --name osu_mania_4k_ln_analyzer_CN osu_mania_4k_ln_analyzer_CN.py
+pyinstaller --onefile --name osu_mania_4k_ln_analyzer_EN osu_mania_4k_ln_analyzer_EN.py
+"""
+
+upload_to_vcs_release = true
+
+[tool.semantic_release.publish]
+dist_glob_patterns = [
+    "dist/*.exe"
+]
