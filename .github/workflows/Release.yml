@@ -35,8 +35,14 @@ jobs:
       - name: Semantic Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYTHONUTF8: "1"
         run: |
+          # 1. 配置 Git 机器人信息
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"    
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 2. 生成版本并执行编译 (触发 pyproject.toml 中的 build_command)
           python -m semantic_release -vv version
+          
+          # 3. 发布产物到 GitHub Release
           python -m semantic_release -vv publish
